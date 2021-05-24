@@ -15,10 +15,12 @@ package sec3;
 import java.util.ArrayList;
 
 
-public class User {
-    private String name;
-    private String mail;
+public class PollData {
+    protected String title;
+    protected int maxVote;
+    protected static ArrayList<String> names = new ArrayList<>();
     
-    protected static ArrayList<User> Users = new ArrayList<User>();
     
+    
+
 }
