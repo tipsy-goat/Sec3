@@ -19,6 +19,17 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public class KeyGen {
+    private static String privKey;
+    private static String pubKey;
+
+    public static String getPrivKey() {
+        return privKey;
+    }
+
+    public static String getPubKey() {
+        return pubKey;
+    }
+    
     // methods named according to security standards
     public static void startKeyGen() throws NoSuchAlgorithmException{
         // Making a KeyPair
@@ -32,9 +43,12 @@ public class KeyGen {
         
         // Get Private Key
         PrivateKey priv = pair.getPrivate();
+        privKey=pair.getPrivate().toString();
         
         // Get Public Key
         PublicKey publ = pair.getPublic();
+        pubKey=pair.getPublic().toString();
+        
     }
     
 
