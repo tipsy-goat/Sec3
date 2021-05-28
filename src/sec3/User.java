@@ -1,13 +1,10 @@
-/**
+/*
  *
  * @author Markos Asimomytis
  * icsd11011
+ * Kostantinos Fessas
+ * icsd12197 
  * 
- */
-
-/*
- * Markos Asimomytis
- * icsd11011
  */
 
 package sec3;
@@ -22,15 +19,16 @@ import java.util.logging.Logger;
 
 
 public class User {
-    private String name;
-    private String mail;
-    private String hashedPassword;
-    private String salt;
+    protected String name;
+    protected String mail;
+    protected String hashedPassword;
+    protected String salt;
+    private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();// to use with toHex
     
     protected static ArrayList<User> Users = new ArrayList<User>();
     protected static ArrayList<String> Pass = new ArrayList<String>();
     
-    public void User(String name, String mail){
+    public User(String name, String mail){
         this.name=name;
         this.mail=mail;
         this.salt=createSalt32();
@@ -65,7 +63,7 @@ public class User {
         if(!check){
             createPass();
         }
-        System.err.println(pass);
+//        System.err.println("This is the Password "+pass);
         return pass;
     }
     
@@ -73,7 +71,7 @@ public class User {
         MessageDigest m = MessageDigest.getInstance("SHA-512");
         m.update(salt.getBytes());
         byte[] hash = m.digest(createPass().getBytes(StandardCharsets.UTF_8));
-        return "done";
+        return toHex(hash);
     }
     
     protected static String createSalt32(){
@@ -87,7 +85,17 @@ public class User {
         .limit(targetStringLength)
         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
         .toString();
-        System.err.println(salt);
+//        System.err.println("This is a salt "+salt);
         return salt;
+}
+    protected static String toHex(byte[] bytes){
+        // to be used when storing a hashed password from byte to string
+    byte[] hexChars = new byte[bytes.length * 2];
+    for (int j = 0; j < bytes.length; j++) {
+        int v = bytes[j] & 0xFF;
+        hexChars[j * 2] = (byte) HEX_ARRAY[v >>> 4];
+        hexChars[j * 2 + 1] = (byte) HEX_ARRAY[v & 0x0F];
+    }
+    return new String(hexChars, StandardCharsets.UTF_8);
 }
 }

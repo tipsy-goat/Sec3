@@ -1,13 +1,10 @@
-/**
+/*
  *
  * @author Markos Asimomytis
  * icsd11011
+ * Kostantinos Fessas
+ * icsd12197 
  * 
- */
-
-/*
- * Markos Asimomytis
- * icsd11011
  */
 
 package sec3;
